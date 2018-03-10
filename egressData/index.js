@@ -1,10 +1,19 @@
+var azure = require("azure-storage");
+
+const tbl_store = "bittrexdata";
+
 module.exports = function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
     if (req.query.ticker) {
+        /* retrieve ticker info */
+        var tickerData = {};
+
+        //tableSvc.retrieveEntity(tbl_store, req.query.ticker, entity_id, callback);
+
         context.res = {
             // status: 200, /* Defaults to 200 */
-            body: "Hello " + (req.query.ticker)
+            body: tickerData
         };
     }
     else {

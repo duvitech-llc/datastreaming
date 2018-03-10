@@ -11,7 +11,8 @@ bittrex.options({
 const tableSvc = azure.createTableService();
 
 module.exports = function(context, myTimer) {
-
+  var timeStamp = new Date().toISOString();
+  
   if (myTimer.isPastDue) {
     context.log("Bittrex Update running late!");
   }
@@ -20,7 +21,7 @@ module.exports = function(context, myTimer) {
     if (err) {
       return context.log(err);
     }
-    var dateStamp = easydate("Y-d-MTh:m:s.lZ", { timeZone: "utc" });
+    
     for (var i in data.result) {
       var entity = {
         PartitionKey: { _: data.result[i].MarketName},
