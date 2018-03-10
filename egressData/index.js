@@ -115,7 +115,7 @@ module.exports = function(context, req) {
             }
           }
         });
-
+        context.log(JSON.stringify(tickerData));
         context.res = {
           // status: 200, /* Defaults to 200 */
           body: tickerData
