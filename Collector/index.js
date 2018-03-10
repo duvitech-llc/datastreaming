@@ -17,8 +17,6 @@ module.exports = function(context, myTimer) {
     context.log("Bittrex Update running late!");
   }
 
-  tableSvc.createTableIfNotExists(tbl_store);
-
   bittrex.getmarketsummaries(function(data, err) {
     if (err) {
       return context.log(err);
@@ -42,7 +40,7 @@ module.exports = function(context, myTimer) {
     }
   });
 
-  context.log("Bittrex data update ran ran!", timeStamp);
+  context.log("Bittrex data update completed!", timeStamp);
 
   context.done();
 };
