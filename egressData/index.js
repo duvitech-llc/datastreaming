@@ -65,13 +65,13 @@ module.exports = function(context, req) {
   context.log("JavaScript HTTP trigger function processed a request.");
 
   if (req.query.ticker) {
-    /* retrieve ticker info */
-    var tickerData = {};
 
     var query = new azure.TableQuery().where(
       "PartitionKey eq ?",
       req.query.ticker
     );
+
+    /* retrieve ticker info */
 
     tableSvc.queryEntities(tbl_store, query, null, function(
       error,
@@ -79,6 +79,7 @@ module.exports = function(context, req) {
       response
     ) {
       if (!error) {
+        var tickerData = {};
         result.entries.forEach(element => {
           if (isEmpty(tickerData)) {
             context.log("Is Empty");
