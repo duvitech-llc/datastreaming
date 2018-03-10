@@ -120,11 +120,13 @@ module.exports = function(context, req) {
           // status: 200, /* Defaults to 200 */
           body: tickerData
         };
+        context.done();
       } else {
         context.res = {
           status: 404,
           body: "Not Found"
         };
+        context.done();
       }
     });
   } else {
@@ -132,7 +134,7 @@ module.exports = function(context, req) {
       status: 400,
       body: "Please pass a market name in the  query string"
     };
+    context.done();
   }
 
-  context.done();
 };
