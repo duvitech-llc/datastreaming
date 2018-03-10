@@ -2,25 +2,41 @@ var azure = require("azure-storage");
 
 const tbl_store = "bittrexdata";
 
-module.exports = function (context, req) {
-    context.log('JavaScript HTTP trigger function processed a request.');
+module.exports = function(context, req) {
+  context.log("JavaScript HTTP trigger function processed a request.");
 
-    if (req.query.ticker) {
-        /* retrieve ticker info */
-        var tickerData = {};
+  if (req.query.ticker) {
+    /* retrieve ticker info */
+    var tickerData = {};
 
-        //tableSvc.retrieveEntity(tbl_store, req.query.ticker, entity_id, callback);
+    var query = new azure.TableQuery().where(
+      "PartitionKey eq ?",
+      req.query.ticker
+    );
 
+    tableSvc.queryEntities(tbl_store, query, null, function(
+      error,
+      result,
+      response
+    ) {
+      if (!error) {
         context.res = {
-            // status: 200, /* Defaults to 200 */
-            body: tickerData
+          status: 404,
+          body: "Not Found"
         };
-    }
-    else {
+      } else {
         context.res = {
-            status: 400,
-            body: "Please pass a name on the query string or in the request body"
+          // status: 200, /* Defaults to 200 */
+          body: tickerData
         };
-    }
-    context.done();
+      }
+    });
+  } else {
+    context.res = {
+      status: 400,
+      body: "Please pass a name on the query string or in the request body"
+    };
+  }
+
+  context.done();
 };
