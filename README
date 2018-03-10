@@ -1,0 +1,27 @@
+Example Ingress, egress, processor and collector azure functions.
+
+You must have an Azure account create an Azure Function, enable local git publishing.
+
+Create a storage account and table store named "bittrexdata"
+    if you use a different table name change tbl_store variable
+
+The following keys will need to be set in the Azure Function app settings
+
+AZURE_STORAGE_ACCOUNT
+AZURE_STORAGE_ACCESS_KEY
+BITTREX_API_KEY
+BITTREX_API_SECRET
+
+clone Azure function repo, add this code to the local git repo. make any naming changes, push repo to master to deploy.
+
+
+Collector runs every 15 minutes and collects BTC- market, ETH- market, and USDT- market data for all listed coins.
+    - simple transformation
+egressData returns the most recent value when the ticker query parameter is provided with a market name BTC-ETH for Example
+    - performs simple time analysis
+    - simple transformation
+ingressData TBD
+Processor TBD
+
+
+env.bat can be used to set environment variables so that the test.js functions can run
