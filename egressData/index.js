@@ -2,6 +2,8 @@ var azure = require("azure-storage");
 
 const tbl_store = "bittrexdata";
 
+var tableSvc = azure.createTableService();
+
 function isEmpty(obj) {
   for (var prop in obj) {
     if (obj.hasOwnProperty(prop)) return false;
